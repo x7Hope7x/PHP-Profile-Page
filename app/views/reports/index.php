@@ -120,17 +120,20 @@
                 <?php
                     }
                 ?>
+                <section class = "most-reminders">
+                    <h2>Most reminders: <?php echo $_SESSION['mostReminders'];?></h2>
+                </section>
+                <section class = "total-logins">
+                    <h2>Total logins: <?php echo htmlspecialchars($_SESSION['loginUsername'])."\t". htmlspecialchars($_SESSION['tLogins']);?></h2>
+                </section>
                 <form action="/reports/totalLogin" method="post" style="margin: 0;">
-                    <input type="hidden" name="total-logins" value = "<?php echo $reminder['username']?>">
+                    <input type="text" name="subject" required style="flex: 1; margin-right: 10px;">
+                    <input type="hidden" name="total-logins" >
                     <button type="submit">Total Logins</button>
                 </form>
             </section>
-            <section class = "total-logins">
-                <h2>Total logins:</h2>
-            </section>
-            <section class = "most-reminders">
-                <h2>Most reminders:</h2>
-            </section>
+            
+            
         </main>
     </div>
 </body>

@@ -74,6 +74,31 @@ INNER JOIN reminders ON users.id = reminders.user_id;
         $rows = $statement->fetch(PDO::FETCH_ASSOC);
         return $rows;
     }
-    
+
+    public function total_logins($username) {
+        $_SESSION['loginF'] = 1;
+        $db = db_connect();
+        $sql = "SELECT id FROM attempts WHERE username = :username";
+        $statement = $db->prepare($sql);
+        $statement->bindValue(':username', $username);
+        $statement->execute();
+        $rows = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $_SESSION['tLogins'] = $rows['id'];
+        $_SESSION['loginUsername'] = $username;
+        // Redirect to the reports page
+        header('Location: /reports');
+    }
+
+
+    public function most_reminders(){
+        $db = db_connect();
+        $sql = "SELECT users.username, COUNT(reminders.id) AS num_reminders FROM users JOIN reminders ON users.id = reminders.user_id GROUP BY users.username ORDER BY num_reminders DESC LIMIT 1";
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $rows = $statement->fetch(PDO::FETCH_ASSOC);
+        $_SESSION['mostReminders'] = $rows['username'];
+        header( 'Location: /reports');
+    }
 }
 ?>
