@@ -8,4 +8,8 @@ class Reports extends Controller {
       $this -> view('reports/index', ['reminders' => $list_of_reminders]);
     }
 
+    public function totalLogin($username){
+        $user = $this->model('Reminder');
+        $this -> total_logins($username);
+    }
 }

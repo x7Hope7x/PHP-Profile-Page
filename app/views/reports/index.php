@@ -111,11 +111,25 @@
 
                 ?>
                     <div class="reminder-item">
-                        <?php echo "<p>" .htmlspecialchars($reminder['user_id']) . '</p>'; ?>
+                        <p style="display: flex; gap: 20px;">
+                            <span><?php echo htmlspecialchars($reminder['username']); ?></span>
+                            <span><?php echo htmlspecialchars($reminder['subject']); ?></span>
+                            <span><?php echo htmlspecialchars($reminder['created_at']); ?></span>
+                        </p>
                     </div>
                 <?php
                     }
                 ?>
+                <form action="/reports/totalLogin" method="post" style="margin: 0;">
+                    <input type="hidden" name="total-logins" value = "<?php echo $reminder['username']?>">
+                    <button type="submit">Total Logins</button>
+                </form>
+            </section>
+            <section class = "total-logins">
+                <h2>Total logins:</h2>
+            </section>
+            <section class = "most-reminders">
+                <h2>Most reminders:</h2>
             </section>
         </main>
     </div>

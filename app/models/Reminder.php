@@ -11,7 +11,10 @@ class Reminder {
     public function getReports () {
         // gets the list of all reminders from the database.
         $db = db_connect();
-        $statement = $db->prepare("select * from reminders");
+        $statement = $db->prepare("SELECT users.username, reminders.subject, reminders.created_at 
+FROM users 
+INNER JOIN reminders ON users.id = reminders.user_id;
+");
         $statement->execute();
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -64,12 +67,13 @@ class Reminder {
     }
     public function getUser($user_id){
         $db = db_connect();
-        $sql = "SELECT * FROM reminders JOIN users WHERE id = :user_id";
+        $sql = "SELECT * FROM reminders JOIN users WHERE user_id = :user_id";
         $statement = $db->prepare($sql);
         $statement->bindValue(':user_id', $user_id);
         $statement->execute();
         $rows = $statement->fetch(PDO::FETCH_ASSOC);
         return $rows;
     }
+    
 }
 ?>
