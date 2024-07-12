@@ -1,8 +1,8 @@
-<?php if($_SESSION['username'] == "Admin"){
+<?php if ($_SESSION['username'] == "Admin") {
     require_once 'app/views/templates/headerAdmin.php';
-}else{
+} else {
     require_once 'app/views/templates/header.php';
-}?>
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,12 +38,14 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 90%;
+            max-width: 800px;
             margin-top: 100px; /* Space for the header */
             text-align: center;
         }
         .container h2 {
             margin-bottom: 20px;
+            color: #ff69b4; /* Pink */
         }
         .reminders ul {
             list-style-type: none;
@@ -64,24 +66,28 @@
             justify-content: space-between;
             width: 100%;
             align-items: center;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
         .reminders form {
             display: inline;
         }
         .reminders button {
             padding: 5px 10px;
-            background-color: #007BFF;
+            background-color: #ff69b4; /* Pink */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .reminders button:hover {
-            background-color: #0056b3;
+            background-color: #ff1493; /* Darker Pink */
         }
         .add-reminder input[type="text"] {
             width: calc(100% - 22px);
-            padding: 20px;
+            padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -89,56 +95,56 @@
         .add-reminder button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #ff69b4; /* Pink */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .add-reminder button:hover {
-            background-color: #0056b3;
+            background-color: #ff1493; /* Darker Pink */
+        }
+        .section-title {
+            color: #ff69b4; /* Pink */
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-content">
-            <?php if($_SESSION['username'] == "Admin"){
+            <?php if ($_SESSION['username'] == "Admin") {
                 include 'app/views/templates/headerAdmin.php';
-            }else{
-                include'app/views/templates/header.php';
-            }?>
+            } else {
+                include 'app/views/templates/header.php';
+            } ?>
         </div>
     </div>
     <div class="container">
         <main>
             <section class="reminders">
-                <h2>All Reminders</h2>
+                <h2 class="section-title">All Reminders</h2>
                 <ul id="reminder-list">
-                    <?php
-                        foreach ($data['reminders'] as $reminder) {
-                    ?>
-                    <li>
-                        <div class="reminder-item">
-                            <?php echo "<p>" . htmlspecialchars($reminder['subject']) . '</p>'; ?>
-                            <form action="/reminders/delete" method="post" style="margin: 0;">
+                    <?php foreach ($data['reminders'] as $reminder): ?>
+                        <li>
+                            <div class="reminder-item">
+                                <?php echo "<p>" . htmlspecialchars($reminder['subject']) . '</p>'; ?>
+                                <form action="/reminders/delete" method="post" style="margin: 0;">
+                                    <input type="hidden" name="reminder_id" value="<?php echo $reminder['id']; ?>">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div>
+                            <form action="/reminders/update" method="post" style="width: 100%; display: flex; margin-top: 10px;">
+                                <input type="text" name="subject" required style="flex: 1; margin-right: 10px;">
                                 <input type="hidden" name="reminder_id" value="<?php echo $reminder['id']; ?>">
-                                <button type="submit">Delete</button>
+                                <button type="submit">Update</button>
                             </form>
-                        </div>
-                        <form action="/reminders/update" method="post" style="width: 100%; display: flex; margin-top: 10px;">
-                            <input type="text" name="subject" required style="flex: 1; margin-right: 10px;">
-                            <input type="hidden" name="reminder_id" value="<?php echo $reminder['id']; ?>">
-                            <button type="submit">Update</button>
-                        </form>
-                    </li>
-                    <?php
-                        }
-                    ?>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </section>
             <section class="add-reminder">
-                <h2>Add New Reminder</h2>
+                <h2 class="section-title">Add New Reminder</h2>
                 <form action="/reminders/create" method="post">
                     <input type="text" name="subject" required><br>
                     <button type="submit">Add Reminder</button>
