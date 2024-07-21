@@ -90,6 +90,7 @@
 							<p><button type="submit">Login</button></p>
 				</form>
 				<p><a href="/create">Don't have an account? Register here</a></p>
+				<p><a href="/movie">Look movies up!</a></p>
 		</div>
 </body>
 </html>

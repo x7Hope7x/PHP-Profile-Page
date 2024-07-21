@@ -36,7 +36,10 @@ if (!isset($_SESSION['auth'])) {
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/reports">Reports </a>
-        </li>  
+        </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="/movie">Movies </a>
+          </li>
          <?php }else{
         ?>
         <li class="nav-item">
@@ -47,7 +50,10 @@ if (!isset($_SESSION['auth'])) {
         </li>
             <li class="nav-item">
               <a class="nav-link" style='color:black' href="/reports">Reports </a>
-            </li>  
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/movie">Movies </a>
+          </li>
          <?php }
         ?>
       </ul>

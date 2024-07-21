@@ -34,6 +34,9 @@ if (!isset($_SESSION['auth'])) {
         <li class="nav-item">
           <a class="nav-link" href="/reminders">Reminders</a>
         </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/movie">Movies </a>
+          </li>
          <?php }else{
         ?>
         <li class="nav-item">
@@ -42,6 +45,9 @@ if (!isset($_SESSION['auth'])) {
         <li class="nav-item">
           <a class="nav-link" style='color:black'ref="/reminders">Reminders </a>
         </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/movie">Movies </a>
+          </li>
          <?php }
         ?>
         
