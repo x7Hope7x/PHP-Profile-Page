@@ -5,11 +5,13 @@ class Movie extends Controller{
 
   public function index(){
     $this -> view('movie/index');
+    unset($_SESSION['reviewFlag']);
   }
 
   public function search(){
     if(!isset($_REQUEST['movie'])){
       // if movie is blank redirect to /movie
+      unset($_SESSION['reviewFlag']);
       header('location: /movie');
     }
   
@@ -22,18 +24,13 @@ class Movie extends Controller{
     
 
     
-    
     $this -> view('movie/results', ['movie' => $movie]);
 
-    // COSC Project
-    //   movie [search....]
-    // Search button
-
-    // barbie rating : [1 , 2, 3, 4, 5] a href="/movie/review/barbie/1"
+    
     
   }
 
-  public function review($movie_title = '', $rating= ''){
+  public function rate($movie_title = '', $rating= ''){
     // if rating isnt 1,2,3,4,5... etc.
     $api = $this -> model('Api');
 
@@ -47,7 +44,21 @@ class Movie extends Controller{
     $this -> view('movie/results', ['movie' => $movie,'review' => $review]);
     
   }
+
+  public function get_review($movie_title = ''){
+    $api = $this -> model('Api');
+    $_SESSION['reviewFlag'] = 1;
+
+    $movie_title = $_SESSION['movie_title'];
+    $movie_title = $api -> get_movie_reviews($movie_title);
+
+    $movie_title = $api -> search_movie($movie_title);
+    $this -> view('movie/results', ['movie' => $movie]);
+      
+    }
+  
 }
+
 
 
 

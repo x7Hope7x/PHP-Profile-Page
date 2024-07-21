@@ -40,30 +40,36 @@
     <div class="container">
         <h1><?php echo $data['movie']['Title']; ?> (<?php echo $data['movie']['Year']; ?>)</h1>
         <img src="<?php echo $data['movie']['Poster']; ?>" alt="<?php echo $data['movie']['Title']; ?> Poster">
-
-        <form action="/movie/review" method="post">
+        <form action="/movie/get_review" method = "post">
+            <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
+            <button type="submit" class="btn">Get a critics review</button>
+            <?php if (isset( $_SESSION['reviewFlag'])){
+                 echo "<p>".htmlspecialchars($_SESSION['review'])."</p>";
+            }?>
+        </form>
+        <form action="/movie/rate" method="post">
         <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
             Rate This Movie:
             <input type="hidden" name="rating" value="1">
             <button type="submit" class="btn">1</button>
         </form>  
         
-        <form action="/movie/review" method="post">
+        <form action="/movie/rate" method="post">
             <input type="hidden" name="rating" value="2">
             <button type="submit" class="btn">2</button>
         </form>
         
-        <form action="/movie/review" method="post">
+        <form action="/movie/rate" method="post">
             <input type="hidden" name="rating" value="3">
             <button type="submit" class="btn">3</button>
         </form>
             
-        <form action="/movie/review" method="post">
+        <form action="/movie/rate" method="post">
             <input type="hidden" name="rating" value="4">
             <button type="submit" class="btn">4</button>
         </form>
             
-        <form action="/movie/review" method="post">
+        <form action="/movie/rate" method="post">
             <input type="hidden" name="rating" value="5">
             <button type="submit" class="btn">5</button>
         </form>
