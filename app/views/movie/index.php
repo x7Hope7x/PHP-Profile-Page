@@ -1,9 +1,13 @@
-<?php require_once 'app/views/templates/headerPublic.php'?>
+<?php if($_SESSION['username'] == "Admin"){
+    require_once 'app/views/templates/headerAdmin.php';
+}else{
+    require_once 'app/views/templates/header.php';
+}?>
 <main role="main" class="container">
     <div class="page-header" id="banner">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Look up a Movie</h1>
+                <h1>What movie are you looking for?</h1>
             </div>
         </div>
     </div>

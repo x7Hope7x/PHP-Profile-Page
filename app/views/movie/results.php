@@ -1,8 +1,14 @@
+<?php if($_SESSION['username'] == "Admin"){
+    require_once 'app/views/templates/headerAdmin.php';
+}else{
+    require_once 'app/views/templates/header.php';
+}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a href="/movie/index" class="btn btn-primary">Back to search</a>
     <title><?php echo $data['movie']['Title']; ?> (<?php echo $data['movie']['Year']; ?>)</title>
     <style>
         body {
@@ -40,13 +46,19 @@
     <div class="container">
         <h1><?php echo $data['movie']['Title']; ?> (<?php echo $data['movie']['Year']; ?>)</h1>
         <img src="<?php echo $data['movie']['Poster']; ?>" alt="<?php echo $data['movie']['Title']; ?> Poster">
-        <form action="/movie/get_review" method = "post">
-            <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
-            <button type="submit" class="btn">Get a critics review</button>
-            <?php if (isset( $_SESSION['reviewFlag'])){
-                 echo "<p>".htmlspecialchars($_SESSION['review'])."</p>";
-            }?>
-        </form>
+                 <?php if (!isset($_SESSION['reviewFlag'])) { ?>
+                     <form action="/movie/get_review" method="post">
+                         <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
+                             <button type="submit" value="<?php $movie_title;?>"class="btn">Get a critics review</button>
+                         </div> <!-- Close the div tag -->
+                     </form>
+                 <?php } ?>
+
+                 <?php if (isset($_SESSION['reviewFlag'])) { 
+                     echo "<p>" . htmlspecialchars($_SESSION['review']) . "</p>";
+                 } ?>
+
+        
         <form action="/movie/rate" method="post">
         <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
             Rate This Movie:

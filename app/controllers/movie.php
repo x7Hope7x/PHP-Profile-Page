@@ -49,10 +49,15 @@ class Movie extends Controller{
     $api = $this -> model('Api');
     $_SESSION['reviewFlag'] = 1;
 
+    
     $movie_title = $_SESSION['movie_title'];
+    
+    $movie_encoded = urlencode($movie_title);
+    
     $movie_title = $api -> get_movie_reviews($movie_title);
-
-    $movie_title = $api -> search_movie($movie_title);
+    
+    
+    $movie = $api -> search_movie($movie_encoded);
     $this -> view('movie/results', ['movie' => $movie]);
       
     }

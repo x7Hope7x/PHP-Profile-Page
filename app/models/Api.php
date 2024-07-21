@@ -51,7 +51,7 @@ class Api {
                         "role" => "user",
                             "parts" => array(
                             array(
-                                  "text" => 'Please give a review of '.$movieTBR .'for a movie that has an average review of '.$avg
+                                  "text" => 'Please give a review of '.$movieTBR['Title'] .'for a movie that has an average review of '.$avg
                               )
                           )
                       )
@@ -65,22 +65,40 @@ class Api {
               curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
               $response = curl_exec($ch);
               curl_close($ch);
-              if(curl_errno($ch)) {
-                   echo 'Curl error: ' . curl_error($ch);
-              }
-              
-              $_SESSION['review'] = $response;
+            if (curl_errno($ch)) {
+                echo 'Curl error: ' . curl_error($ch);
+            } else {
+                $response = json_decode($response, true);  // Decode the JSON response
 
-                // header("Location: /movie/results");
-            return $_SESSION['review'];
-        }else{
-            $_SESSION['review'] = "There are no reviews for this movie yet.";
-            // header("Location: /movie/results");
-            return $_SESSION['review'];
-            
-        }
+                // Access the review text within the response
+                if (isset($response['candidates'][0]['content']['parts'][0]['text'])) {
+                    $reviewText = $response['candidates'][0]['content']['parts'][0]['text'];
+                } else {
+                    // Handle the case where the review text is not found in the expected structure
+                    $_SESSION['review'] = "There was an issue retrieving the review. Please try again later.";
+                    return $movieTBR;
+                }
+
+                if ($reviewText != "") {
+                    // Replace all occurrences of "Array" with the actual movie title
+                    $formattedReview = str_replace("Array", ucwords($movie_title), $reviewText);
+
+                    // Remove asterisks and other unwanted characters
+                    $cleanReview = strip_tags($formattedReview);
+                    $cleanReview = str_replace('*', '', $cleanReview);
+
+                    $_SESSION['review'] = $cleanReview;
+                    return $movieTBR;
+                    // ... redirect logic ...
+                } else {
+                    $_SESSION['review'] = "There are no reviews for this movie yet.";
+                    return $_SESSION['review'];
+                }
+            }
+
+
         
-
+        }
       
             
     }

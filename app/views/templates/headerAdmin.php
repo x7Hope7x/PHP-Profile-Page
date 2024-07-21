@@ -40,22 +40,48 @@ if (!isset($_SESSION['auth'])) {
           <li class="nav-item">
             <a class="nav-link" href="/movie">Movies </a>
           </li>
-         <?php }else{
+         <?php }if (strpos($currentRoute, '/reminders') !== false) {
         ?>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/home">Welcome, <?php echo $_SESSION['username']; ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style='color:black' href="/reminders">Reminders </a>
+          <a class="nav-link" style='color:black'ref="/reminders">Reminders </a>
         </li>
-            <li class="nav-item">
-              <a class="nav-link" style='color:black' href="/reports">Reports </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reports">Reports </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/movie">Movies </a>
           </li>
-         <?php }
-        ?>
+         <?php } if (strpos($currentRoute, '/movie') !== false) {?>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Welcome, <?php echo $_SESSION['username']; ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reminders">Reminders </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/reports">Reports </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style='color:black' href="/movie">Movies </a>
+          </li>
+        <?php } if (strpos($currentRoute, '/reports') !== false) {?>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Welcome, <?php echo $_SESSION['username']; ?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reminders">Reminders </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style='color:black'href="/reports">Reports </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/movie">Movies </a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
   </div>
