@@ -21,22 +21,23 @@ class Api {
 
     public function get_movie_reviews ($movie_title){
 
-      $movieTBR = $this -> search_movie($movie_title);
+        $movieTBR = $this -> search_movie($movie_title);
 
-      $url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=".$_ENV['GEMINI'];
-
-      $data = array(
-          "contents" => array(
-              array(
-                  "role" => "user",
-                  "parts" => array(
-                      array(
-                          "text" => 'Please give a review of '.$movieTBR .'from someone that has an average of 4 out of 5.'
+        
+        $url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=".$_ENV['GEMINI'];
+    
+        $data = array(
+            "contents" => array(
+                array(
+                    "role" => "user",
+                        "parts" => array(
+                        array(
+                              "text" => 'Please give a review of '.$movieTBR .'from someone that has an average of 4 out of 5.'
+                          )
                       )
                   )
               )
-          )
-      );
+          );
 
       $json_data = json_encode($data);
       $ch = curl_init($url);
@@ -59,7 +60,7 @@ class Api {
             $userid = $_SESSION['userid'];
             $statement =$db -> prepare("INSERT INTO ratings (movie_title, rating, ratings_user_id) VALUES ('$movie_title', '$rating','$userid')");
             $statement->execute();
-            header ('Location /movie');
+            // header ('Location: /movie/results');
         }
         else{
             
