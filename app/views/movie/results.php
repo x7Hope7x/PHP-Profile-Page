@@ -1,7 +1,9 @@
 <?php if($_SESSION['username'] == "Admin"){
     require_once 'app/views/templates/headerAdmin.php';
-}else{
+}else if(isset($_SESSION['auth'])){
     require_once 'app/views/templates/header.php';
+}else{
+    require_once 'app/views/templates/headerPublic.php';
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +60,7 @@
                      echo "<p>" . htmlspecialchars($_SESSION['review']) . "</p>";
                  } ?>
 
-        
+        <?php if(isset($_SESSION['auth'])){ ?>
         <form action="/movie/rate" method="post">
         <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
             Rate This Movie:
@@ -87,7 +89,7 @@
         </form>
             
         </div>
-        </form>
+        <?php }?>
         <div class="details">
             <h2>Movie Details</h2>
             <p><strong>Rated:</strong> <?php echo $data['movie']['Rated']; ?></p>

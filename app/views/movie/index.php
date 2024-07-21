@@ -1,7 +1,9 @@
 <?php if($_SESSION['username'] == "Admin"){
     require_once 'app/views/templates/headerAdmin.php';
-}else{
+}else if(isset($_SESSION['auth'])){
     require_once 'app/views/templates/header.php';
+}else{
+    require_once 'app/views/templates/headerPublic.php';
 }?>
 <main role="main" class="container">
     <div class="page-header" id="banner">

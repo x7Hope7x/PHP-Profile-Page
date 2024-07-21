@@ -1,4 +1,4 @@
-<?php require_once 'app/views/templates/headerPublic.php'?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
