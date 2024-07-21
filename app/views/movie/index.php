@@ -1,14 +1,10 @@
-    <?php
-    if (!isset($_SESSION['auth'])) {
-        header('Location: /login');
-        exit;
-    }
-    if ($_SESSION['username'] == "Admin") {
-        require_once 'app/views/templates/headerAdmin.php';
-    } else {
-        require_once 'app/views/templates/header.php';
-    }
-    ?>
+<?php if($_SESSION['username'] == "Admin"){
+    require_once 'app/views/templates/headerAdmin.php';
+}else if(isset($_SESSION['auth'])){
+    require_once 'app/views/templates/header.php';
+}else{
+    require_once 'app/views/templates/headerPublic.php';
+}?>
     <!DOCTYPE html>
     <html lang="en">
     <head>

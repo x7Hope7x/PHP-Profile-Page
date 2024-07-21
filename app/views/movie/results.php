@@ -1,14 +1,10 @@
-<?php
-if (!isset($_SESSION['auth'])) {
-    header('Location: /login');
-    exit;
-}
-if ($_SESSION['username'] == "Admin") {
+<?php if($_SESSION['username'] == "Admin"){
     require_once 'app/views/templates/headerAdmin.php';
-} else {
+}else if(isset($_SESSION['auth'])){
     require_once 'app/views/templates/header.php';
-}
-?>
+}else{
+    require_once 'app/views/templates/headerPublic.php';
+}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +55,13 @@ if ($_SESSION['username'] == "Admin") {
 <body>
     <div class="container">
         <a href="/movie/index" class="btn btn-primary mb-3">Back to search</a>
+        <?php if(isset($_SESSION['rate_success'])){?>
+            <p>
+                <?php echo "<p>". htmlspecialchars($_SESSION['rate_success'])."</p>"; ?>
+                <?php unset($_SESSION['rate_success']); ?>
+            </p>
+            
+        <?php } ?>
         <h1><?php echo $data['movie']['Title']; ?> (<?php echo $data['movie']['Year']; ?>)</h1>
         <img src="<?php echo $data['movie']['Poster']; ?>" alt="<?php echo $data['movie']['Title']; ?> Poster">
         

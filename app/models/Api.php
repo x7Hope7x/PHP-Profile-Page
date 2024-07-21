@@ -51,7 +51,7 @@ class Api {
                         "role" => "user",
                             "parts" => array(
                             array(
-                                  "text" => 'Please give a review of '.$movieTBR['Title'] .'for a movie that has an average review of '.$avg
+                                  "text" => 'Please give a review of '.$movie_title .'for a movie that has an average review of '.$avg.'out of 5.'
                               )
                           )
                       )
@@ -105,15 +105,15 @@ class Api {
 
     public function give_rating( $movie_title, $rating){
         $db = db_connect();
-        if(isset($_SESSION['auth']))  {
+        
             $userid = $_SESSION['userid'];
             $statement =$db -> prepare("INSERT INTO ratings (movie_title, rating, ratings_user_id) VALUES ('$movie_title', '$rating','$userid')");
             $statement->execute();
-            header ('Location: /movie/index');
-        }
-        else{
-            
-        }
+            $_SESSION['rate_success'] = 1;
+    
+            header ('Location: /movie/results');
+        return $_SESSION['rate_success'];
+
        
         
     }
