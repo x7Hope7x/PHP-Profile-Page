@@ -111,8 +111,8 @@ class Api {
             $statement->execute();
             $_SESSION['rate_success'] = 1;
     
-            header ('Location: /movie/results');
-        return $_SESSION['rate_success'];
+        //     header ('Location: /movie/results');
+        // return $_SESSION['rate_success'];
 
        
         

@@ -41,7 +41,7 @@ class Movie extends Controller{
     $review = $api -> give_rating($movie_title, $rating);
 
     $movie = $api -> search_movie($movie_title);
-    $this -> view('movie/results', ['movie' => $movie,'review' => $review]);
+    $this -> view('movie/results', ['movie' => $movie]);
     
   }
 

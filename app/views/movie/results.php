@@ -52,19 +52,20 @@
         }
     </style>
 </head>
-<body>
+<body> <!-- Rating success prompt -->
     <div class="container">
         <a href="/movie/index" class="btn btn-primary mb-3">Back to search</a>
         <?php if(isset($_SESSION['rate_success'])){?>
             <p>
-                <?php echo "<p>". htmlspecialchars($_SESSION['rate_success'])."</p>"; ?>
+                <?php echo "<p>". "Rating submitted successfully"."</p>"; ?>
                 <?php unset($_SESSION['rate_success']); ?>
             </p>
             
         <?php } ?>
+    
         <h1><?php echo $data['movie']['Title']; ?> (<?php echo $data['movie']['Year']; ?>)</h1>
         <img src="<?php echo $data['movie']['Poster']; ?>" alt="<?php echo $data['movie']['Title']; ?> Poster">
-        
+        <!-- Review buttons or text-->
         <?php if (!isset($_SESSION['reviewFlag'])) { ?>
             <form action="/movie/get_review" method="post">
                 <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
@@ -76,7 +77,7 @@
         <?php if (isset($_SESSION['reviewFlag'])) { 
             echo "<p>" . htmlspecialchars($_SESSION['review']) . "</p>";
         } ?>
-
+    <!-- Rating button allowed for logged in users only-->
         <?php if (isset($_SESSION['auth'])) { ?>
             <form action="/movie/rate" method="post" class="mb-3">
                 <div class="btn-group btn-group-custom" role="group" aria-label="Basic example">
